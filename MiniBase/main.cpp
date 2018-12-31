@@ -21,19 +21,16 @@ extern vector<string> g_anticheckfiless;
 DWORD Original_ExecuteString;
 
 const char *StrStr_Hooked(char *str1, char *str2) {
+	_strlwr(str1);
 	if (binary_search(g_anticheckfiless.begin(), g_anticheckfiless.end(), str1)) {
 		if (logsfiles->value > 0) {
 			ConsolePrintColor(0, 255, 0, "[ADetect] Hide file - ");
-			ConsolePrintColor(205, 133, 63, _strdup(str1));
-			ConsolePrintColor(255, 255, 255, "\n");
+			ConsolePrintColor(205, 133, 63, "%s\n", str1);
 		}
 		*(char *)&str1[strlen(str1) - 1] = -1;
 	}
 	else {
-		if (logsfiles->value > 0) {
-			ConsolePrintColor(205, 133, 63, _strdup(str1));
-			ConsolePrintColor(255, 255, 255, "\n");
-		}
+		if (logsfiles->value > 0)ConsolePrintColor(205, 133, 63, "%s\n",str1);
 	}
 	return strstr(str1, str2);
 }

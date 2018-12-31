@@ -68,7 +68,7 @@ int Callback(const char *section, const char *key, const char *value,  void *use
 		else if (lstrcmpA(key, "logs") == 0)SetCvarString(logsfiles, value);
 		else if (lstrcmpA(key, "events_block") == 0)SetCvarString(events_block, value);
 	}
-	else if (lstrcmpA(section, "ADetect")==0)g_anticheckfiless.push_back(key);
+	else if (lstrcmpA(section, "ADetect")==0) { _strlwr((char*)key); g_anticheckfiless.push_back(key); }
 	else if (lstrcmpA(section, "AutoInject") == 0) { LoadLibrary(key); }
 	else if (lstrcmpA(section, "Cvars") == 0)AddOrModCvar(key);
 	else if (lstrcmpA(section, "Models") == 0) {models_replace_s model_d; lstrcpyA(model_d.name, key); lstrcpyA(model_d.repl, value); models_list.push_back(model_d);}
@@ -85,7 +85,7 @@ int CallbackUpd(const char *section, const char *key, const char *value,  void *
 		else if (lstrcmpA(key, "logs") == 0)SetCvarString(logsfiles, value);
 		else if (lstrcmpA(key, "events_block") == 0)SetCvarString(events_block, value);
 	}
-	else if (lstrcmpA(section, "ADetect")==0)g_anticheckfiless.push_back(key);
+	else if (lstrcmpA(section, "ADetect")==0) { _strlwr((char*)key); g_anticheckfiless.push_back(key); }
 	//else if (lstrcmpA(section, "AutoInject") == 0)LoadLibrary(key);
 	else if (lstrcmpA(section, "Cvars") == 0)AddOrModCvar(key);
 	else if (lstrcmpA(section, "Models") == 0) {models_replace_s model_d; lstrcpyA(model_d.name, key); lstrcpyA(model_d.repl, value); models_list.push_back(model_d);}
@@ -94,7 +94,7 @@ int CallbackUpd(const char *section, const char *key, const char *value,  void *
 	else if (lstrcmpA(section, "Commands") == 0) { _strlwr((char*)key); g_blockedCmdss.push_back(key); }
 	return 1;
 }
-void Inject(){LoadLibraryA(g_Engine.Cmd_Argv(1)); }
+void Inject(){ LoadLibrary(g_Engine.Cmd_Argv(1)); }
 
 void DumpCmd(){
 	cmd_s *pCmd = g_Engine.pfnGetCmdList();
@@ -126,7 +126,7 @@ typedef enum cmd_source_s
 
 void InitHack(){
 	if (g_Engine.Con_IsVisible() == 0)g_Engine.pfnClientCmd("toggleconsole");
-	ConsolePrintColor(0, 255, 11, "-- Extra Mirror v3.1\n");
+	ConsolePrintColor(0, 255, 11, "-- Extra Mirror v3.2\n");
 	ConsolePrintColor(255, 255, 255, "-- Use 'credits' for more information\n");
 	ConsolePrintColor(255, 255, 255, "-- Thank's to Realwar for title\n");    
 	ConsolePrintColor(255, 255, 255, "-- Thank's to FightMagister for functions\n");

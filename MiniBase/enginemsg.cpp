@@ -259,7 +259,6 @@ void SVC_VoiceInit() {
 	char* codec = MSG_ReadString(); int bitz = MSG_ReadByte(); bool blocked;
 	if (!stricmp(codec, "voice_miles") || !stricmp(codec, "voice_speex"))blocked = false;
 	else blocked = true;
-	char buffer[1024];
 	ConsolePrintColor(255, 255, 255, "[Extra Mirror] [VoiceInit] %s [%s]\n", codec, blocked ? "Blocked" : "Execute");
 	if (blocked)return;
 	MSG_RestoreReadCount();
